@@ -4,11 +4,26 @@ This repository contains templates for a modern and responsive Home Assistant da
 
 -----
 
-![alt text](image.png)
+![alt text](img/example.png)
 
 -----
 
-### 🚀 How to Use
+### Available Cards
+
+#### Stacked Notification Card
+Notifications that stack and expand on hover or touch. They support multiple actions and auto-close.
+
+![alt text](img/stacked_notifications.gif)
+
+
+#### Room Card
+A card for controlling multiple devices in a single room, with multiple actions available.
+
+![alt text](img/room_card.png)
+
+-----
+
+### 🚀 Setup 
 
 1.  **Be sure to have `button-card` and `card-mod` installed.** You can get them via HACS.
 
@@ -31,7 +46,7 @@ views: ...
 ```
 -----
 
-### 💡 Using the Templates
+### 🧩 Using the Templates
 
 Once you set up the templates, you can create cards that use them.
 
@@ -45,7 +60,7 @@ See the `card_examples` directory for full card configurations.
 
 -----
 
-### 🎨 Sharing Themes
+### 🎨 Themes
 
 If you like how this dashboard looks, you can find the themes I'm using in the `themes` folder.
 
