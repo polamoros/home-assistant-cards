@@ -89,4 +89,7 @@ Feel free to open an issue or submit a pull request if you have ideas for improv
 
 If you find these templates useful, you can support my work by buying me a coffe / beer!
 
+
 <a href="https://www.buymeacoffee.com/polamoros" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<br/><br/>
+<img src="img/qr-code.png" alt="QR Code" width="200" height="200">
