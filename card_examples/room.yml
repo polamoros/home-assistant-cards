@@ -1,0 +1,83 @@
+type: custom:button-card
+template: room_card
+name: Home
+icon: mdi:home-outline
+state_display: |
+  [[[
+    const temperature = states['sensor.salon_temperatura']
+      ? states['sensor.salon_temperatura'].state
+      : states['sensor.switchbot_hub_meter'].state;
+    const humidity = states['sensor.salon_humedad']
+      ? states['sensor.salon_humedad'].state
+      : states['sensor.switchbot_hub_meter_humedad'].state;
+    return temperature
+      ? parseFloat(temperature).toFixed(1) + "°C / " + humidity + "%"
+      : 'N/A';
+  ]]]
+variables:
+  img_bg: "#b8e6fe"
+  icon_color: "#00598a"
+  actions_columns:
+    - - type: custom:button-card
+        entity: lock.puerta_entrada
+        tap_action:
+          action: more-info
+        styles:
+          icon:
+            - color: |
+                [[[
+                  return states['lock.puerta_entrada'].state === 'unlocked'
+                    ? '#FF0000'
+                    : 'inherit';
+                ]]]
+      - type: custom:button-card
+        icon: mdi:transmission-tower
+        tap_action:
+          action: navigate
+          navigation_path: "#electricity"
+      - type: custom:button-card
+        icon: mdi:cctv
+        tap_action:
+          action: navigate
+          navigation_path: /lovelace/cameras
+        hold_action:
+          action: navigate
+          navigation_path: "#cam-notifications"
+        styles:
+          icon:
+            - color: var(--primary-color)
+    - - type: custom:button-card
+        entity: light.luces_casa
+        tap_action:
+          action: navigate
+          navigation_path: "#lights"
+      - type: custom:button-card
+        entity: binary_sensor.thermostats_heating
+        tap_action:
+          action: navigate
+          navigation_path: "#heating"
+        state: null
+        icon: |
+          [[[
+            if (states['binary_sensor.thermostats_heating'].state == 'on') {
+              return 'mdi:radiator';
+            } else if (states['binary_sensor.caldera_heating'].state == 'on') {
+              return 'mdi:water-boiler-auto';
+            }
+            return 'mdi:radiator-disabled';
+          ]]]
+        styles:
+          icon:
+            - color: |
+                [[[
+                  if (states['binary_sensor.thermostats_heating'].state == 'on') {
+                    return '#F97316';
+                  }
+                ]]]
+      - type: custom:button-card
+        entity: cover.persianas_all
+        tap_action:
+          action: navigate
+          navigation_path: "#covers"
+grid_options:
+  columns: 6

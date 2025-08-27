@@ -1,0 +1,70 @@
+button_card_templates:
+  room_card_action:
+    show_name: false
+    styles:
+      card:
+        - width: 36px
+        - height: 36px
+        - box-shadow: null
+      icon:
+        - width: 20px
+  room_card:
+    show_state: true
+    show_icon: true
+    show_name: true
+    styles:
+      grid:
+        - grid-template-areas: '"n actions_container" "s actions_container" "i actions_container"'
+        - grid-template-columns: 1fr min-content
+        - grid-template-rows: min-content min-content 1fr
+      card:
+        - padding: 10px
+        - background: var(--card-background-color)
+      custom_fields:
+        actions_container:
+          - background: var(--primary-background-color)
+          - border-radius: 14px
+          - padding: 5px
+          - position: relative
+      name:
+        - justify-self: start
+        - font-size: 19px
+        - font-weight: 600
+        - color: var(--primary-color)
+      state:
+        - min-height: 80px
+        - justify-self: start
+        - font-size: 12px
+        - font-weight: 500
+        - color: rgba(96,114,116,0.7)
+      img_cell:
+        - position: absolute
+        - width: 110px
+        - height: 110px
+        - left: '-20px'
+        - bottom: '-20px'
+        - border-radius: 100%
+        - background: '[[[ return variables.img_bg || "#b8e6fe"; ]]]'
+      icon:
+        - width: 60px
+        - opacity: '0.8'
+        - color: '[[[ return variables.icon_color || "#00598a"; ]]]'
+    custom_fields:
+      actions_container:
+        card:
+          type: horizontal-stack
+          cards: |
+            [[[
+              const cols = Array.isArray(variables.actions_columns) ? variables.actions_columns : [];
+
+              const ensureTemplate = (action) => {
+                if (action.type !== 'custom:button-card') return action;
+                if (!action.template) action.template = 'room_card_action';
+                return action;
+              };
+
+              return cols.map(col => ({
+                type: 'vertical-stack',
+                cards: (Array.isArray(col) ? col : []).map(ensureTemplate),
+              }));
+            ]]]

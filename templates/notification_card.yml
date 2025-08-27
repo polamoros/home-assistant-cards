@@ -1,0 +1,131 @@
+button_card_templates:
+  notification_card:
+    show_label: true
+    show_icon: true
+    styles:
+      grid:
+        - grid-template-areas: '"i n badge" "i l actions"'
+        - grid-template-columns: min-content 1fr min-content
+        - grid-template-rows: min-content 1fr
+        - grid-gap: 0px 5px
+      card:
+        - padding: 12px
+        - border-radius: 20px
+        - background: var(--card-background-color)
+        - box-shadow: var(--ha-card-box-shadow)
+      img_cell:
+        - width: 35px
+        - height: 35px
+        - border-radius: 50%
+        - background: '[[[ return variables.icon_bg; ]]]'
+        - display: flex
+        - align-items: center
+        - justify-content: center
+      icon:
+        - width: 20px
+      name:
+        - justify-self: start
+        - font-size: 16px
+        - font-weight: 500
+        - margin-left: 5px
+      label:
+        - justify-self: start
+        - font-size: 14px
+        - color: var(--secondary-text-color)
+        - overflow: hidden
+        - text-overflow: ellipsis
+        - white-space: nowrap
+        - min-width: 0
+        - margin-left: 5px
+      custom_fields:
+        badge:
+          - position: absolute
+          - top: 8px
+          - left: 36px
+        actions:
+          - grid-row-start: 1 !important;
+          - grid-row-end: 3 !important;
+    name: |
+      [[[
+        const date = new Date(states[variables.entity].last_changed);
+        const today = new Date();
+        const formatted = date.toDateString() === today.toDateString()
+          ? date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          : date.toLocaleDateString([], { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+        return `
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span>${variables.card_name}</span>
+            <span style="font-size:12px;color:var(--secondary-text-color);">${formatted}</span>
+          </div>`;
+      ]]]
+    custom_fields:
+      badge: |
+        [[[
+          if (!variables.badge_icon) {
+            return "";
+          }
+          return `
+            <div style="
+              border-radius: 50%;
+              background: ${variables.badge_bg};
+              font-size: 0px;
+              height: 16px;
+              width: 16px;
+              box-shadow: 0 1px 2px rgba(0,0,0,0.18);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <ha-icon icon="${variables.badge_icon}" style="color:#ffffff;height:12px;padding:2px"/>
+            </div>
+          `;
+        ]]]
+      actions:
+        card:
+          type: horizontal-stack
+          style:
+            height: 100%
+            align-items: center
+          cards: |
+            [[[
+              let actions = (variables.actions_list || []).map(action => {
+                let newAction = { ...action };
+                newAction.template = 'notification_card_action';
+                return newAction;
+              });
+
+              if (variables.show_close_button !== false) {
+                actions = actions.concat({
+                  type: 'custom:button-card',
+                  icon: 'mdi:close',
+                  show_name: false,
+                  entity: variables.entity,
+                  tap_action: { action: 'toggle' },
+                  template: 'notification_card_action'
+                });
+              }
+              return actions;
+            ]]]
+  notification_card_action:
+    styles:
+      card:
+        - width: 30px
+        - height: 30px
+        - box-shadow: none
+        - background: none
+      icon:
+        - width: 20px
+        - color: var(--primary-text-color)
+    card_mod:
+      style: |
+        :host {
+          transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+          border-radius: 0px; /* Ensure a starting border-radius for the transition */
+        }
+        :host(:hover) {
+          transform: scale(1.1);
+          cursor: pointer;
+          background-color: var(--secondary-background-color); /* A subtle background on hover */
+          border-radius: 100%; /* Rounded corners on hover */
+        }
+
