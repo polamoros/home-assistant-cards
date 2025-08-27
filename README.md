@@ -29,22 +29,24 @@ A card for controlling multiple devices in a single room, with multiple actions 
 
 2.  Copy the content of the `templates` directory and paste it into the top of your `ui-lovelace.yaml` file. You can access this by clicking **Edit dashboard** -\> **three dots** -\> **Raw configuration editor**.
 
-It should look something like this:
+    ⚠️ **WARNING:** Be sure you **do not delete the views key** below the templates. This is basically your dashboard configuration and deleting it will delete your  UI.
 
-``` yaml
-button_card_templates:
-    room_card_action:
-    ...
-    room_card:
-    ...
-    notification_card:
-    ...
-    notification_card_action:
-    ...
+    It should look something like this:
 
-views: ...  
-```
------
+    ``` yaml
+    button_card_templates:
+        room_card_action:
+        ...
+        room_card:
+        ...
+        notification_card:
+        ...
+        notification_card_action:
+        ...
+
+    views: ...  
+    ```
+    -----
 
 ### 🧩 Using the Templates
 

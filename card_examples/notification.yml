@@ -1,157 +1,35 @@
+# replace "{your_entity_id}" with your input_boolean id
+# replace "{your_service_id}" and "{your_service_entity_id}" for the actions
 type: custom:mod-card
-conditions:
-  - condition: state
-    entity: none
-    state: "type: conditional"
 card:
   type: vertical-stack
   cards:
     - type: conditional
       conditions:
         - condition: state
-          entity: input_boolean.roborock_tank_empty
-          state: "on"
+          entity: input_boolean.{your_entity_id}
+          state: on
       card:
         type: custom:button-card
         template: notification_card
-        icon: mdi:robot-vacuum
-        label: Water tank is empty. Please refill it.
+        icon: mdi:server
+        label: This is the label
         variables:
-          icon_bg: rgba(159, 7, 18, 0.12)
-          badge_bg: "#ff6467"
-          badge_icon: mdi:water-alert-outline
-          entity: input_boolean.roborock_tank_empty
-          card_name: Roborock
-    - type: conditional
-      conditions:
-        - condition: state
-          entity: input_boolean.automatic_close_covers_on_sunset
-          state: "on"
-      card:
-        type: custom:button-card
-        template: notification_card
-        icon: mdi:window-shutter-auto
-        label: The covers will close automatically soon.
-        variables:
-          icon_bg: rgba(245, 158, 11, 0.12)
-          badge_bg: "#f59e0b"
-          badge_icon: mdi:clock-alert-outline
-          entity: input_boolean.automatic_close_covers_on_sunset
-          card_name: Covers
-    - type: conditional
-      conditions:
-        - condition: state
-          entity: input_boolean.nuki_battery_warning
-          state: "on"
-      card:
-        type: custom:button-card
-        template: notification_card
-        icon: mdi:lock-smart
-        label: Battery is low. Please recharge soon.
-        variables:
-          icon_bg: rgba(250, 204, 21, 0.15)
-          badge_bg: "#facc15"
-          badge_icon: mdi:battery-alert
-          entity: input_boolean.nuki_battery_warning
-          card_name: Nuki Pro
-    - type: conditional
-      conditions:
-        - condition: state
-          entity: input_boolean.suggest_open_door
-          state: "on"
-      card:
-        type: custom:button-card
-        template: notification_card
-        icon: mdi:door
-        label: Door is closed. Do you want to open it?
-        variables:
-          icon_bg: rgba(59, 130, 246, 0.15)
-          badge_bg: "#3b82f6"
-          badge_icon: mdi:lock
-          entity: input_boolean.suggest_open_door
-          card_name: Front Door
-          actions_list:
-            - type: custom:button-card
-              show_name: false
-              icon: mdi:lock-open-variant
-              tap_action:
-                action: call-service
-                service: lock.unlock
-                service_data:
-                  entity_id: lock.puerta_entrada
-            - type: custom:button-card
-              show_name: false
-              icon: mdi:door-open
-              tap_action:
-                action: call-service
-                service: lock.open
-                service_data:
-                  entity_id: lock.puerta_entrada
-    - type: conditional
-      conditions:
-        - condition: state
-          entity: input_boolean.roborock_paused
-          state: "on"
-      card:
-        type: custom:button-card
-        template: notification_card
-        icon: mdi:robot-vacuum
-        label: Roborock is paused. What do you want to do?
-        variables:
-          icon_bg: rgba(59, 130, 246, 0.15)
-          badge_bg: "#3b82f6"
-          badge_icon: mdi:pause
-          entity: input_boolean.roborock_paused
-          card_name: Roborock
+          icon_bg: rgba(255, 152, 0, 0.12)
+          badge_bg: "#ff9800"
+          badge_icon: mdi:exclamation
+          entity: input_boolean.{your_entity_id}
+          card_name: Hello World
           actions_list:
             - type: custom:button-card
               icon: mdi:play
               show_name: false
               tap_action:
                 action: call-service
-                service: vacuum.start
+                service: {your_service_id}
                 service_data:
-                  entity_id: vacuum.roborock
-            - type: custom:button-card
-              icon: mdi:home-export-outline
-              show_name: false
-              tap_action:
-                action: call-service
-                service: vacuum.return_to_base
-                service_data:
-                  entity_id: vacuum.roborock
-    - type: conditional
-      conditions:
-        - condition: state
-          entity: input_boolean.roborock_tank_empty
-          state: "on"
-      card:
-        type: custom:button-card
-        template: notification_card
-        icon: mdi:robot-vacuum
-        label: Water tank is empty. Please refill it.
-        variables:
-          icon_bg: rgba(159, 7, 18, 0.12)
-          badge_bg: "#ff6467"
-          badge_icon: mdi:water-alert-outline
-          entity: input_boolean.roborock_tank_empty
-          card_name: Roborock
-    - type: conditional
-      conditions:
-        - condition: state
-          entity: input_boolean.rack_over_35degc
-          state: "on"
-      card:
-        type: custom:button-card
-        template: notification_card
-        icon: mdi:server
-        label: Rack temperature is over 35 °C!
-        variables:
-          icon_bg: rgba(255, 152, 0, 0.12)
-          badge_bg: "#ff9800"
-          badge_icon: mdi:thermometer-alert
-          entity: input_boolean.rack_over_35degc
-          card_name: Rack Alert
+                  entity_id: {your_service_entity_id}
+
 grid_options:
   columns: 24
   rows: auto
