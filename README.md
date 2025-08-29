@@ -27,7 +27,7 @@ A card for controlling multiple devices in a single room, with multiple actions 
 
 1.  **Be sure to have `button-card` and `card-mod` installed.** You can get them via HACS.
 
-2.  Copy the content of the `templates` directory and paste it into the top of your `ui-lovelace.yaml` file. You can access this by clicking **Edit dashboard** -\> **three dots** -\> **Raw configuration editor**.
+2.  Copy the content of the `templates` directory and paste it into the top of your Dashboard yaml. You can access this by clicking **Edit dashboard** -\> **three dots** -\> **Raw configuration editor**.
 
     ⚠️ **WARNING:** Be sure you **do not delete the views key** below the templates. This is basically your dashboard configuration and deleting it will delete your  UI.
 
