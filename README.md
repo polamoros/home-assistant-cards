@@ -15,11 +15,25 @@ Notifications that stack and expand on hover or touch. They support multiple act
 
 ![alt text](img/stacked_notifications.gif)
 
+**Features:**
+- **Stacking Behavior**: Multiple notifications stack vertically, with only the top one fully visible. Hovering or touching expands all notifications for easy access.
+- **Customizable Display**: Includes customizable icon, title, message, and timestamp (shows time if today, date and time otherwise).
+- **Badges**: Optional badges on notifications (e.g., warning icons or custom values) for additional context.
+- **Multiple Actions**: Each notification can have multiple action buttons (e.g., play, pause, dismiss).
+- **Close Button**: Built-in close button to manually dismiss notifications.
+- **Responsive Design**: Adapts to different screen sizes with smooth transitions and hover effects.
 
 #### Room Card
-A card for controlling multiple devices in a single room, with multiple actions available.
+A card for controlling multiple devices in a single room, with multiple actions available, configurable badges and more!
 
 ![alt text](img/room_card.png)
+
+**Features:**
+- **Room Overview**: Displays room name, icon, current state (e.g., temperature/humidity), and optional sub-state.
+- **Customizable Appearance**: Configurable background colors for the card and icon, allowing personalization to match your theme.
+- **Action Columns**: Actions are organized in vertical columns, each containing multiple buttons for device control.
+- **Flexible Actions**: Supports various tap actions such as toggle, more-info, navigate to other views, or call services.
+- **Badge Support**: Actions can have badges indicating status (types: success, info, warning, error, white) with icons or values, and support custom background and text colors for full customization.
 
 -----
 

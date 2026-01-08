@@ -21,7 +21,10 @@ variables:
         icon: mdi:thermostat
         tap_action:
           action: more-info
-        
+        variables:
+          badge_type: warning
+          badge_icon: mdi:fire
+          badge_display: true
       - type: custom:button-card
         template: room_card_action
         #entity: "{your_entity_id}"

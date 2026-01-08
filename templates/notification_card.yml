@@ -2,17 +2,18 @@ button_card_templates:
   notification_card:
     show_label: true
     show_icon: true
+    tap_action:
+      action: none
+    icon_tap_action:
+      action: more-info
     styles:
-      grid:
-        - grid-template-areas: '"i n badge" "i l actions"'
-        - grid-template-columns: min-content 1fr min-content
-        - grid-template-rows: min-content 1fr
-        - grid-gap: 0px 5px
       card:
         - padding: 12px
         - border-radius: 20px
         - background: var(--card-background-color)
         - box-shadow: var(--ha-card-box-shadow)
+        - cursor: default
+        - hover: none
       img_cell:
         - width: 35px
         - height: 35px
@@ -21,8 +22,12 @@ button_card_templates:
         - display: flex
         - align-items: center
         - justify-content: center
+        - cursor: pointer
+        - transition: background-color 0.2s ease
       icon:
         - width: 20px
+        - color: '[[[ return variables.icon_color; ]]]'
+        - transition: color 0.2s ease
       name:
         - justify-self: start
         - font-size: 16px
@@ -45,18 +50,32 @@ button_card_templates:
         actions:
           - grid-row-start: 1 !important;
           - grid-row-end: 3 !important;
+      grid:
+        - grid-template-areas: '"i n badge" "i l actions"'
+        - grid-template-columns: min-content 1fr min-content
+        - grid-template-rows: min-content 1fr
+        - grid-gap: 0px 5px
     name: |
       [[[
-        const date = new Date(states[variables.entity].last_changed);
+        if (!entity) return '';
+        const date = new Date(entity.last_changed);
         const today = new Date();
         const formatted = date.toDateString() === today.toDateString()
           ? date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           : date.toLocaleDateString([], { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
         return `
           <div style="display:flex;align-items:center;gap:6px;">
-            <span>${variables.card_name}</span>
+            <span>${variables.title}</span>
             <span style="font-size:12px;color:var(--secondary-text-color);">${formatted}</span>
           </div>`;
+      ]]]
+    label: |
+      [[[
+        return `${variables.message}`;
+      ]]]
+    icon: |
+      [[[
+        return `${variables.icon}`;
       ]]]
     custom_fields:
       badge: |
@@ -76,7 +95,7 @@ button_card_templates:
               align-items: center;
               justify-content: center;
             ">
-              <ha-icon icon="${variables.badge_icon}" style="color:#ffffff;height:12px;padding:2px"/>
+              <ha-icon icon="${variables.badge_icon}" style="color:#ffffff;height:12px;padding:2px"></ha-icon>
             </div>
           `;
         ]]]
@@ -86,6 +105,7 @@ button_card_templates:
           style:
             height: 100%
             align-items: center
+            align-self: center
           cards: |
             [[[
               let actions = (variables.actions_list || []).map(action => {
@@ -99,13 +119,19 @@ button_card_templates:
                   type: 'custom:button-card',
                   icon: 'mdi:close',
                   show_name: false,
-                  entity: variables.entity,
+                  entity: entity.entity_id,
                   tap_action: { action: 'toggle' },
                   template: 'notification_card_action'
                 });
               }
+
               return actions;
             ]]]
+    state:
+      - value: 'off'
+        styles:
+          card:
+            - display: none
   notification_card_action:
     styles:
       card:
@@ -121,6 +147,11 @@ button_card_templates:
         :host {
           transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-radius 0.2s ease-in-out;
           border-radius: 0px; /* Ensure a starting border-radius for the transition */
+        }
+        #actions {
+          grid-row-start: 1 !important;
+          grid-row-end: 3 !important;
+          align-self: center !important;
         }
         :host(:hover) {
           transform: scale(1.1);
