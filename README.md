@@ -4,7 +4,7 @@ This repository contains templates for a modern and responsive Home Assistant da
 
 -----
 
-![alt text](img/example.png)
+![alt text](img/example.png?v=2)
 
 -----
 
@@ -26,7 +26,7 @@ Notifications that stack and expand on hover or touch. They support multiple act
 #### Room Card
 A card for controlling multiple devices in a single room, with multiple actions available, configurable badges and more!
 
-![alt text](img/room_card.png)
+![alt text](img/room_card.png?v=2)
 
 **Features:**
 - **Room Overview**: Displays room name, icon, current state (e.g., temperature/humidity), and optional sub-state.
